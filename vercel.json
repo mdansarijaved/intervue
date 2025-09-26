@@ -4,8 +4,7 @@
   "builds": [
     {
       "src": "apps/web/package.json",
-      "use": "@vercel/static-build",
-      "build": "pnpm build"
+      "use": "@vercel/static-build"
     },
     {
       "src": "apps/server/src/index.ts",
@@ -14,8 +13,12 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "destination": "/apps/server/src/index.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/apps/web/index.html"
     }
   ]
 }
