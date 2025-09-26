@@ -36,7 +36,9 @@ export const votesRouter = router({
         throw new Error("Poll has ended");
       }
 
-      const option = poll.options.find((opt) => opt.id === optionId);
+      const option = poll.options.find(
+        (opt: { id: string }) => opt.id === optionId
+      );
       if (!option) {
         throw new Error("Invalid option for this poll");
       }
@@ -105,15 +107,21 @@ export const votesRouter = router({
 
       if (updatedPoll) {
         const totalVotes = updatedPoll._count.votes;
-        const results = updatedPoll.options.map((option) => ({
-          id: option.id,
-          text: option.text,
-          votes: option._count.votes,
-          percentage:
-            totalVotes > 0
-              ? Math.round((option._count.votes / totalVotes) * 100)
-              : 0,
-        }));
+        const results = updatedPoll.options.map(
+          (option: {
+            id: string;
+            text: string;
+            _count: { votes: number };
+          }) => ({
+            id: option.id,
+            text: option.text,
+            votes: option._count.votes,
+            percentage:
+              totalVotes > 0
+                ? Math.round((option._count.votes / totalVotes) * 100)
+                : 0,
+          })
+        );
 
         const liveResults = {
           poll: {
