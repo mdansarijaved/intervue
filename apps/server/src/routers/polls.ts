@@ -272,15 +272,17 @@ export const pollsRouter = router({
       }
 
       const totalVotes = poll._count.votes;
-      const results = poll.options.map((option) => ({
-        id: option.id,
-        text: option.text,
-        votes: option._count.votes,
-        percentage:
-          totalVotes > 0
-            ? Math.round((option._count.votes / totalVotes) * 100)
-            : 0,
-      }));
+      const results = poll.options.map(
+        (option: { id: string; text: string; _count: { votes: number } }) => ({
+          id: option.id,
+          text: option.text,
+          votes: option._count.votes,
+          percentage:
+            totalVotes > 0
+              ? Math.round((option._count.votes / totalVotes) * 100)
+              : 0,
+        })
+      );
 
       return {
         poll: {
@@ -334,16 +336,25 @@ export const pollsRouter = router({
     return {
       ...activePoll,
       totalVotes: activePoll._count.votes,
-      options: activePoll.options.map((option) => ({
-        id: option.id,
-        text: option.text,
-        order: option.order,
-        votes: option._count.votes,
-        percentage:
-          activePoll._count.votes > 0
-            ? Math.round((option._count.votes / activePoll._count.votes) * 100)
-            : 0,
-      })),
+      options: activePoll.options.map(
+        (option: {
+          id: string;
+          text: string;
+          order: number;
+          _count: { votes: number };
+        }) => ({
+          id: option.id,
+          text: option.text,
+          order: option.order,
+          votes: option._count.votes,
+          percentage:
+            activePoll._count.votes > 0
+              ? Math.round(
+                  (option._count.votes / activePoll._count.votes) * 100
+                )
+              : 0,
+        })
+      ),
     };
   }),
 
@@ -400,16 +411,25 @@ export const pollsRouter = router({
       return {
         ...nextPoll,
         totalVotes: nextPoll._count.votes,
-        options: nextPoll.options.map((option) => ({
-          id: option.id,
-          text: option.text,
-          order: option.order,
-          votes: option._count.votes,
-          percentage:
-            nextPoll._count.votes > 0
-              ? Math.round((option._count.votes / nextPoll._count.votes) * 100)
-              : 0,
-        })),
+        options: nextPoll.options.map(
+          (option: {
+            id: string;
+            text: string;
+            order: number;
+            _count: { votes: number };
+          }) => ({
+            id: option.id,
+            text: option.text,
+            order: option.order,
+            votes: option._count.votes,
+            percentage:
+              nextPoll._count.votes > 0
+                ? Math.round(
+                    (option._count.votes / nextPoll._count.votes) * 100
+                  )
+                : 0,
+          })
+        ),
       };
     }),
 
@@ -459,7 +479,7 @@ export const pollsRouter = router({
         select: { id: true },
       });
 
-      const pollIds = polls.map((p) => p.id);
+      const pollIds = polls.map((p: { id: string }) => p.id);
       if (pollIds.length === 0) return [] as { id: string; name: string }[];
 
       const voters = await prisma.user.findMany({
