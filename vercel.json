@@ -2,7 +2,7 @@
   "version": 2,
   "framework": "vite",
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm -C apps/web build",
+  "buildCommand": "pnpm -w -F web build",
   "outputDirectory": "apps/web/dist",
   "rewrites": [
     {
