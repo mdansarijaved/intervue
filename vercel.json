@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "framework": "vite",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm -C apps/web build",
+  "outputDirectory": "apps/web/dist",
+  "rewrites": [
+    {
+      "source": "/trpc/:match*",
+      "destination": "https://intervue-production-f51d.up.railway.app/trpc/:match*"
+    },
+    {
+      "source": "/socket.io/:match*",
+      "destination": "https://intervue-production-f51d.up.railway.app/socket.io/:match*"
+    },
+    {
+      "source": "/((?!trpc|socket\\.io).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
+

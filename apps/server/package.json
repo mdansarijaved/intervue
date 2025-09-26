@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "prebuild": "prisma db push && prisma generate",
-    "build": "tsdown",
+    "build": "tsc",
     "check-types": "tsc -b",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "tsx watch src/index.ts",
