@@ -23,8 +23,8 @@ export const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
       url: `${
-        import.meta.env.VITE_SERVER_URL ||
-        "VITE_SERVER_URL=intervue-production-f51d.up.railway.app"
+        (import.meta.env.VITE_SERVER_URL as string | undefined) ??
+        "intervue-production-f51d.up.railway.app"
       }/trpc`,
     }),
   ],
