@@ -22,7 +22,10 @@ export const queryClient = new QueryClient({
 export const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: `${import.meta.env.VITE_SERVER_URL || "http://localhost:3000"}/trpc`,
+      url: `${
+        import.meta.env.VITE_SERVER_URL ||
+        "VITE_SERVER_URL=intervue-production-f51d.up.railway.app"
+      }/trpc`,
     }),
   ],
 });
