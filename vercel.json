@@ -1,32 +1,21 @@
 {
-  "version": 2,
-  "framework": "vite",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm -w -F web build && mkdir -p .vercel/output/static && cp -R apps/web/dist/* .vercel/output/static",
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pnpm install",
+  "builds": [
     {
-      "source": "/trpc/:match*",
-      "destination": "https://intervue-production-f51d.up.railway.app/trpc/:match*"
+      "src": "apps/web/package.json",
+      "use": "@vercel/static-build",
+      "build": "pnpm build"
     },
     {
-      "source": "/socket.io/:match*",
-      "destination": "https://intervue-production-f51d.up.railway.app/socket.io/:match*"
-    },
-    {
-      "source": "/((?!trpc|socket\\.io).*)",
-      "destination": "/index.html"
+      "src": "apps/server/src/index.ts",
+      "use": "@vercel/node"
     }
   ],
-  "headers": [
+  "rewrites": [
     {
       "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
+      "destination": "/apps/server/src/index.ts"
     }
   ]
 }
-
