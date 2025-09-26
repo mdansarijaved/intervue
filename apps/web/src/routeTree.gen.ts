@@ -9,8 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeacherRouteImport } from './routes/teacher'
+import { Route as QuestionRouteImport } from './routes/question'
+import { Route as PollsRouteImport } from './routes/polls'
+import { Route as NameEntryRouteImport } from './routes/name-entry'
+import { Route as CreateQuestionRouteImport } from './routes/create-question'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TeacherRoute = TeacherRouteImport.update({
+  id: '/teacher',
+  path: '/teacher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionRoute = QuestionRouteImport.update({
+  id: '/question',
+  path: '/question',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PollsRoute = PollsRouteImport.update({
+  id: '/polls',
+  path: '/polls',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NameEntryRoute = NameEntryRouteImport.update({
+  id: '/name-entry',
+  path: '/name-entry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateQuestionRoute = CreateQuestionRouteImport.update({
+  id: '/create-question',
+  path: '/create-question',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +49,102 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/create-question': typeof CreateQuestionRoute
+  '/name-entry': typeof NameEntryRoute
+  '/polls': typeof PollsRoute
+  '/question': typeof QuestionRoute
+  '/teacher': typeof TeacherRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create-question': typeof CreateQuestionRoute
+  '/name-entry': typeof NameEntryRoute
+  '/polls': typeof PollsRoute
+  '/question': typeof QuestionRoute
+  '/teacher': typeof TeacherRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/create-question': typeof CreateQuestionRoute
+  '/name-entry': typeof NameEntryRoute
+  '/polls': typeof PollsRoute
+  '/question': typeof QuestionRoute
+  '/teacher': typeof TeacherRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/create-question'
+    | '/name-entry'
+    | '/polls'
+    | '/question'
+    | '/teacher'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/create-question'
+    | '/name-entry'
+    | '/polls'
+    | '/question'
+    | '/teacher'
+  id:
+    | '__root__'
+    | '/'
+    | '/create-question'
+    | '/name-entry'
+    | '/polls'
+    | '/question'
+    | '/teacher'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreateQuestionRoute: typeof CreateQuestionRoute
+  NameEntryRoute: typeof NameEntryRoute
+  PollsRoute: typeof PollsRoute
+  QuestionRoute: typeof QuestionRoute
+  TeacherRoute: typeof TeacherRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/teacher': {
+      id: '/teacher'
+      path: '/teacher'
+      fullPath: '/teacher'
+      preLoaderRoute: typeof TeacherRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/question': {
+      id: '/question'
+      path: '/question'
+      fullPath: '/question'
+      preLoaderRoute: typeof QuestionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/polls': {
+      id: '/polls'
+      path: '/polls'
+      fullPath: '/polls'
+      preLoaderRoute: typeof PollsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/name-entry': {
+      id: '/name-entry'
+      path: '/name-entry'
+      fullPath: '/name-entry'
+      preLoaderRoute: typeof NameEntryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create-question': {
+      id: '/create-question'
+      path: '/create-question'
+      fullPath: '/create-question'
+      preLoaderRoute: typeof CreateQuestionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +157,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateQuestionRoute: CreateQuestionRoute,
+  NameEntryRoute: NameEntryRoute,
+  PollsRoute: PollsRoute,
+  QuestionRoute: QuestionRoute,
+  TeacherRoute: TeacherRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
