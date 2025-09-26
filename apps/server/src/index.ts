@@ -12,14 +12,14 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:3001",
+    origin: process.env.CORS_ORIGIN || "https://intervue-web-eight.vercel.app/",
     methods: ["GET", "POST"],
   },
 });
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3001",
+    origin: process.env.CORS_ORIGIN || "https://intervue-web-eight.vercel.app/",
     methods: ["GET", "POST", "OPTIONS"],
   })
 );
