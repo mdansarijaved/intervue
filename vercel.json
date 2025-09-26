@@ -2,8 +2,7 @@
   "version": 2,
   "framework": "vite",
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm -w -F web build",
-  "outputDirectory": "apps/web/dist",
+  "buildCommand": "pnpm -w -F web build && mkdir -p .vercel/output/static && cp -R apps/web/dist/* .vercel/output/static",
   "rewrites": [
     {
       "source": "/trpc/:match*",
